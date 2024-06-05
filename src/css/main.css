@@ -1,4 +1,4 @@
-.container {
+.mainContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,4 +52,200 @@
 .box {
   position: relative;
   display: flex;
+}
+
+.box div {
+  z-index: 99;
+  width: 136px;
+  position: absolute;
+  transform: rotate(-5deg);
+}
+
+.box div:nth-child(1) {
+  top: 67px;
+  left: 2px;
+}
+
+.box div:nth-child(2) {
+  top: 67px;
+  left: 9px;
+  animation: musinsa02 80ms 1280ms forwards;
+}
+
+@keyframes musinsa02 {
+  0% {
+    top: 67px;
+    left: 9px;
+  }
+  100% {
+    top: 52px;
+    left: 181px;
+  }
+}
+
+.box div:nth-child(3) {
+  top: 66px;
+  left: 15px;
+  animation: musinsa03 100ms 1200ms forwards;
+}
+
+@keyframes musinsa03 {
+  0% {
+    top: 66px;
+    left: 15px;
+  }
+  100% {
+    top: 36px;
+    left: 362px;
+  }
+}
+
+.box div:nth-child(4) {
+  top: 66px;
+  left: 21px;
+  animation: musinsa04 120ms 1100ms forwards;
+}
+
+@keyframes musinsa04 {
+  0% {
+    top: 66px;
+    left: 21px;
+  }
+  100% {
+    top: 22px;
+    left: 543px;
+  }
+}
+
+.box div:nth-child(5) {
+  top: 66px;
+  left: 28px;
+  animation: musinsa05 140ms 980ms forwards;
+}
+
+@keyframes musinsa05 {
+  0% {
+    top: 66px;
+    left: 28px;
+  }
+  100% {
+    top: 6px;
+    left: 725px;
+  }
+}
+
+.box div:nth-child(6) {
+  top: 65px;
+  left: 36px;
+  animation: musinsa06 160ms 840ms forwards;
+}
+
+@keyframes musinsa06 {
+  0% {
+    top: 65px;
+    left: 36px;
+  }
+  100% {
+    top: -12px;
+    left: 906px;
+  }
+}
+
+.box div a {
+  position: relative;
+  z-index: 2;
+  display: block;
+  padding-bottom: 40px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.box div a:hover {
+  z-index: 3;
+  animation: cardsBouncewook 0.6s forwards cubic-bezier(0.6, 0.1, 0.2, 1);
+}
+
+@keyframes cardsBouncewook {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.32);
+  }
+  70% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+}
+
+.box div a img {
+  width: 100%;
+  vertical-align: top;
+  box-shadow: 11px 15px 13px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.box div a span {
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  visibility: hidden;
+  opacity: 0;
+  width: 130%;
+  margin-top: 5px;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  transform: translateX(-50%);
+  transition: all 0.3s;
+}
+
+.box div a:hover span {
+  visibility: visible;
+  opacity: 1;
+  bottom: 0;
+  font-weight: 500;
+}
+
+.popupContainer {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px); /* Safari 9+ */
+}
+
+.popupWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.popupContentWrapper {
+  height: 866.25px;
+  padding: 197.75px 0px;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.popupContent {
+  position: relative;
+  width: 800px;
+  transform-origin: top center;
+  box-sizing: border-box;
 }
