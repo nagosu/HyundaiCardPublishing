@@ -224,6 +224,16 @@
   background: rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(48px);
   -webkit-backdrop-filter: blur(48px); /* Safari 9+ */
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .popupWrapper {
@@ -237,8 +247,6 @@
 }
 
 .popupContentWrapper {
-  height: 866.25px;
-  padding: 197.75px 0px;
   overflow: hidden;
   box-sizing: content-box;
 }
@@ -248,4 +256,51 @@
   width: 800px;
   transform-origin: top center;
   box-sizing: border-box;
+}
+
+.cardView {
+  position: relative;
+  height: 570px;
+  overflow: hidden;
+  width: 800px;
+}
+
+.cardImg {
+  width: 296px;
+  height: 468px;
+  float: left;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.cardImg img {
+  width: 100%;
+  vertical-align: top;
+  border: none;
+}
+
+.cardInfo {
+  float: left;
+  padding: 100px 0 0 70px;
+  width: calc(100% - 296px);
+}
+
+.cardType {
+  opacity: 1;
+  transition: all 0.6s 0.4s;
+  color: #fffbf4;
+  line-height: 32px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.cardTit {
+  opacity: 1;
+  transition: all 0.6s 0.5s;
+  margin-top: 4px;
+  line-height: 80px;
+  color: #fff;
+  font-size: 56px;
+  font-weight: 700;
 }
