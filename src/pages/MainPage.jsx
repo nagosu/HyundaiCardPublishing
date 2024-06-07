@@ -157,6 +157,14 @@ function MainPage() {
     };
   }, []);
 
+  // isCardClicked 상태가 변경될 때 resizePop 호출
+  useEffect(() => {
+    if (isCardClicked) {
+      resizePop();
+    }
+  }, [isCardClicked]);
+
+  // 카드 클릭 시 실행되는 함수
   const handleCardClick = (index) => {
     setActiveIndex(index);
     setAnimationClass("fadeIn");
