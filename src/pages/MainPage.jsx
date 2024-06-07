@@ -1,5 +1,5 @@
 import "../css/main.css"; // 메인 페이지 css
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import musinsa from "../assets/videos/musinsa.mp4"; // 백그라운드 비디오
@@ -13,18 +13,31 @@ import card6 from "../assets/images/card6.png"; // 6번째 카드 이미지
 // 메인 페이지
 function MainPage() {
   const [isCardClicked, setIsCardClicked] = useState(false); // 카드 클릭 여부
-  const [scale, setScale] = useState(1); // 스케일 상태
+  const [popupScale, setPopupScale] = useState(1); // 팝업 스케일 상태
+  const [cardWrapperScale, setCardWrapperScale] = useState(1); // cardWrapper 스케일 상태
   const [padding, setPadding] = useState("80px 0px"); // 패딩 상태
+  const cardWrapperRef = useRef(null); // cardWrapper 요소를 참조하기 위한 useRef
 
   // 창 크기에 따라 스케일을 설정하는 함수
   const updateScale = () => {
     const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    let newPopupScale = 1;
     if (width <= 1440) {
-      setScale(0.75);
+      newPopupScale = 0.75;
     } else if (width > 1440 && width < 1920) {
-      setScale(((width - 1440) / (1920 - 1440)) * 0.25 + 0.75);
-    } else {
-      setScale(1);
+      newPopupScale = ((width - 1440) / (1920 - 1440)) * 0.25 + 0.75;
+    }
+    setPopupScale(newPopupScale);
+
+    const contWidth = ((100 / 1920) * width) / 100;
+    const contHeight = ((100 / 1080) * height) / 100;
+    const maxScale = Math.max(contWidth, contHeight);
+    setCardWrapperScale(maxScale);
+
+    if (cardWrapperRef.current) {
+      cardWrapperRef.current.style.transform = `scale(${maxScale})`;
     }
   };
 
@@ -70,7 +83,11 @@ function MainPage() {
           autoPlay // 자동 재생
         ></video>
         {/* 카드 묶음 */}
-        <div className='cardWrapper'>
+        <div
+          className='cardWrapper'
+          ref={cardWrapperRef}
+          style={{ transform: `scale(${cardWrapperScale})` }}
+        >
           <div className='cardSection'>
             <div className='box'>
               {/* 1번째 카드 */}
@@ -129,13 +146,12 @@ function MainPage() {
             >
               <div
                 className='popupContent'
-                style={{ transform: `scale(${scale})` }}
+                style={{ transform: `scale(${popupScale})` }}
               >
                 <Swiper
                   className='cardView'
                   spaceBetween={10}
                   slidesPerView={1}
-                  navigation
                 >
                   <SwiperSlide
                     className='swiper-slide swiper-slide-active'
