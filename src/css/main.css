@@ -1,15 +1,19 @@
+/* mainContainer */
 .mainContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-.video {
+/* video */
+video {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: auto;
   width: 100%;
   height: 100%;
   min-width: 100%;
@@ -17,26 +21,101 @@
   transform: translate(-50%, -50%);
   object-fit: cover;
 }
+/* Webkit 기반 브라우저에서 비디오 컨트롤 숨김 */
+video::-webkit-media-controls {
+  display: none !important;
+}
+/* Mozilla 기반 브라우저에서 비디오 컨트롤 숨김 */
+video::-moz-media-controls-play-button {
+  display: none !important;
+}
+video::-moz-media-controls-volume-slider {
+  display: none !important;
+}
+video::-moz-media-controls-mute-button {
+  display: none !important;
+}
+video::-moz-media-controls-timeline {
+  display: none !important;
+}
+video::-moz-media-controls-current-time-display {
+  display: none !important;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
 
-.cardWrapper {
+/* cardWrap */
+.cardWrap {
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 100;
+}
+.cardWrap::after {
+  z-index: 99;
 }
 
+/* cardSection */
 .cardSection {
-  position: absolute;
   display: block;
+  position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 1;
   width: 1450px;
   height: 253px;
   margin-top: -72px;
   margin-left: -1312px;
-  z-index: 1;
-  animation: musinsa00 300ms 100ms forwards;
+  animation: musinsa00 300ms 100ms forwards; /* 카드 애니메이션 */
 }
-
+.cardSection .box {
+  position: relative;
+  display: flex;
+}
+.cardSection .box div {
+  width: 136px;
+  position: absolute;
+  margin: 0;
+  transform: rotate(-5deg); /* 카드 회전 */
+  cursor: pointer;
+}
+/* 첫번째 카드 */
+.cardSection .box div:nth-child(1) {
+  top: 67px;
+  left: 2px;
+}
+/* 두번째 카드 */
+.cardSection .box div:nth-child(2) {
+  top: 67px;
+  left: 9px;
+  animation: musinsa02 80ms 1280ms forwards;
+}
+/* 세번째 카드 */
+.cardSection .box div:nth-child(3) {
+  top: 66px;
+  left: 15px;
+  animation: musinsa03 100ms 1200ms forwards;
+}
+/* 네번째 카드 */
+.cardSection .box div:nth-child(4) {
+  top: 66px;
+  left: 21px;
+  animation: musinsa04 120ms 1100ms forwards;
+}
+/* 다섯번째 카드 */
+.cardSection .box div:nth-child(5) {
+  top: 66px;
+  left: 28px;
+  animation: musinsa05 140ms 980ms forwards;
+}
+/* 여섯번째 카드 */
+.cardSection .box div:nth-child(6) {
+  top: 65px;
+  left: 36px;
+  animation: musinsa06 160ms 840ms forwards;
+}
+/* cardSection 애니메이션 */
 @keyframes musinsa00 {
   0% {
     margin-top: -72px;
@@ -47,30 +126,7 @@
     margin-left: -564px;
   }
 }
-
-.box {
-  position: relative;
-  display: flex;
-}
-
-.box div {
-  z-index: 99;
-  width: 136px;
-  position: absolute;
-  transform: rotate(-5deg);
-}
-
-.box div:nth-child(1) {
-  top: 67px;
-  left: 2px;
-}
-
-.box div:nth-child(2) {
-  top: 67px;
-  left: 9px;
-  animation: musinsa02 80ms 1280ms forwards;
-}
-
+/* 두번째 카드 애니메이션 */
 @keyframes musinsa02 {
   0% {
     top: 67px;
@@ -81,13 +137,7 @@
     left: 181px;
   }
 }
-
-.box div:nth-child(3) {
-  top: 66px;
-  left: 15px;
-  animation: musinsa03 100ms 1200ms forwards;
-}
-
+/* 세번째 카드 애니메이션 */
 @keyframes musinsa03 {
   0% {
     top: 66px;
@@ -98,13 +148,7 @@
     left: 362px;
   }
 }
-
-.box div:nth-child(4) {
-  top: 66px;
-  left: 21px;
-  animation: musinsa04 120ms 1100ms forwards;
-}
-
+/* 네번째 카드 애니메이션 */
 @keyframes musinsa04 {
   0% {
     top: 66px;
@@ -115,13 +159,7 @@
     left: 543px;
   }
 }
-
-.box div:nth-child(5) {
-  top: 66px;
-  left: 28px;
-  animation: musinsa05 140ms 980ms forwards;
-}
-
+/* 다섯번째 카드 애니메이션 */
 @keyframes musinsa05 {
   0% {
     top: 66px;
@@ -132,13 +170,7 @@
     left: 725px;
   }
 }
-
-.box div:nth-child(6) {
-  top: 65px;
-  left: 36px;
-  animation: musinsa06 160ms 840ms forwards;
-}
-
+/* 여섯번째 카드 애니메이션 */
 @keyframes musinsa06 {
   0% {
     top: 65px;
@@ -149,21 +181,18 @@
     left: 906px;
   }
 }
-
-.box div a {
+.cardSection .box div a {
   position: relative;
   z-index: 2;
   display: block;
   padding-bottom: 40px;
   transition: all 0.5s;
-  cursor: pointer;
 }
-
-.box div a:hover {
+.cardSection .box div a:hover {
   z-index: 3;
-  animation: cardsBouncewook 0.6s forwards cubic-bezier(0.6, 0.1, 0.2, 1);
+  animation: cardsBouncewook 0.6s forwards cubic-bezier(0.6, 0.1, 0.2, 1); /* 카드 hover 애니메이션 */
 }
-
+/* 카드 hover 애니메이션 */
 @keyframes cardsBouncewook {
   0% {
     transform: scale(1);
@@ -178,17 +207,13 @@
     transform: scale(1.3);
   }
 }
-
-.box div a img {
+.cardSection .box div a img {
   width: 100%;
   vertical-align: top;
   box-shadow: 11px 15px 13px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  overflow-clip-margin: content-box;
-  overflow: clip;
 }
-
-.box div a span {
+.cardSection .box div a span {
   position: absolute;
   left: 50%;
   bottom: -20px;
@@ -204,16 +229,16 @@
   transform: translateX(-50%);
   transition: all 0.3s;
 }
-
-.box div a:hover span {
+.cardSection .box div a:hover span {
   visibility: visible;
   opacity: 1;
   bottom: 0;
   font-weight: 500;
 }
 
-.popupContainer {
-  display: block;
+/* layerPop */
+.layerPop {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -221,11 +246,18 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.48);
-  backdrop-filter: blur(48px);
-  -webkit-backdrop-filter: blur(48px); /* Safari 9+ */
-  animation: fadeIn 0.5s forwards;
+  backdrop-filter: blur(48px); /* 블러 효과 */
+  animation-fill-mode: forwards; /* 애니메이션이 끝난 후 상태를 유지 */
 }
-
+/* 팝업 열기 */
+.fadeIn {
+  animation: fadeIn 0.5s;
+}
+/* 팝업 닫기 */
+.fadeOut {
+  animation: fadeOut 0.5s;
+}
+/* 팝업 열기 애니메이션 */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -234,8 +266,16 @@
     opacity: 1;
   }
 }
-
-.popupWrapper {
+/* 팝업 닫기 애니메이션 */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.layerPop .popupWrap {
   position: relative;
   display: flex;
   justify-content: center;
@@ -244,62 +284,261 @@
   height: 100%;
   overflow: auto;
 }
-
-.popupContentWrapper {
-  overflow: hidden;
-  box-sizing: content-box;
-}
-
-.popupContent {
+.layerPop .popupWrap .popCont {
   position: relative;
   width: 800px;
   transform-origin: top center;
   box-sizing: border-box;
 }
-
-.cardView {
+.layerPop .popupWrap .popCont .cardView {
   position: relative;
   height: 570px;
-  overflow: hidden;
-  width: 800px;
+}
+.layerPop .popupWrap .popCont .cardView {
+  position: relative;
+  height: 570px;
 }
 
+/* cardView */
+.cardView {
+  overflow: hidden;
+  width: 800px;
+  height: 650px;
+}
+.cardView .swiper-slide {
+  display: block;
+}
 .cardView .cardImg {
   width: 296px;
   height: 468px;
   float: left;
-  transform: translateX(0);
-  opacity: 1;
-  transition: all 0.5s;
 }
-
 .cardView .cardImg img {
   width: 100%;
-  vertical-align: top;
-  border: none;
 }
-
 .cardView .cardInfo {
   float: left;
   padding: 100px 0 0 70px;
-  width: calc(100% - 296px);
+  width: 434px;
 }
-
-.cardType {
-  opacity: 1;
-  transition: all 0.6s 0.4s;
-  color: #fffbf4;
+.cardView .cardInfo .cardType {
   line-height: 32px;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 24px;
   font-weight: 700;
 }
-
-.cardTit {
-  opacity: 1;
-  transition: all 0.6s 0.5s;
+.cardView .cardInfo .cardTit {
   margin-top: 4px;
   line-height: 80px;
   color: #fff;
   font-size: 56px;
   font-weight: 700;
+}
+.cardView .cardInfo p {
+  word-break: keep-all; /* 한글 줄바꿈 방지 */
+  margin-top: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  font-weight: 500;
+}
+.cardView .swiper-slide .cardImg {
+  transform: translateX(200px);
+  opacity: 0;
+}
+.cardView .swiper-slide .cardType {
+  opacity: 0;
+  color: #fffbf4;
+}
+.cardView .swiper-slide .cardTit {
+  opacity: 0;
+}
+.cardView .swiper-slide p {
+  opacity: 0;
+}
+.cardView .swiper-slide a {
+  opacity: 0;
+}
+.cardView .swiper-slide-active .cardImg {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.5s;
+}
+.cardView .swiper-slide-active .cardType {
+  opacity: 1;
+  transition: all 0.6s 0.4s;
+}
+.cardView .swiper-slide-active .cardTit {
+  opacity: 1;
+  transition: all 0.6s 0.5s;
+}
+.cardView .swiper-slide-active p {
+  opacity: 1;
+  transition: all 0.6s 0.6s;
+}
+.cardView .swiper-slide-active a {
+  opacity: 1;
+  transition: all 0.6s 0.7s;
+}
+
+/* cardThums */
+.cardThums {
+  width: 260px;
+  height: 60px;
+  position: absolute !important;
+  top: 496px;
+  left: 0;
+  z-index: 1000 !important;
+  padding: 0 18px !important;
+  overflow: hidden;
+}
+.cardThums .swiper-slide {
+  position: relative;
+  border-radius: 5px;
+  display: block;
+  width: 36px;
+  height: 60px;
+}
+.cardThums .swiper-slide::after {
+  content: "";
+  display: none;
+  width: 100%;
+  height: 58px;
+  border: solid 1px #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+}
+.cardThums .swiper-slide:hover::after {
+  display: block;
+}
+.cardThums .swiper-slide img {
+  height: 60px;
+  display: block;
+  border-radius: 5px;
+}
+.cardThums .swiper-button-prev,
+.cardThums .swiper-button-next {
+  width: 20px;
+  height: 60px;
+  background: none !important;
+  position: absolute;
+  top: 24px;
+}
+.cardThums .swiper-button-prev {
+  left: -4px;
+}
+.cardThums .swiper-button-next {
+  right: -4px;
+}
+.cardThums .swiper-button-prev:after,
+.cardThums .swiper-button-next:after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("../assets/images/btn_arrow.png") no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  top: 20px;
+}
+.cardThums .swiper-button-prev:after {
+  transform: rotate(180deg);
+}
+
+/* btnClose */
+.btnClose {
+  position: fixed;
+  top: 40px;
+  right: 46px;
+  width: 32px;
+  height: 32px;
+  line-height: 0;
+  font-size: 0;
+  background: url("../assets/images/detailx_close@2x.png") no-repeat center
+    center;
+  background-size: 100%;
+  cursor: pointer;
+}
+
+/* 'bul_' 또는 'dash_'로 시작하는 클래스 */
+[class^="bul_"],
+[class^="dash_"] {
+  position: relative;
+}
+
+/* 'bul_' 또는 'dash_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소 */
+[class^="bul_"][class*="list"] > li,
+[class^="dash_"][class*="list"] > li {
+  position: relative;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* 'bul_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소 */
+[class^="bul_"][class*="list"] > li {
+  padding-left: 9px;
+}
+
+/* 'dash_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소 */
+[class^="dash_"][class*="list"] > li {
+  padding-left: 10px;
+}
+
+/* 'bul_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소의 가상 요소(:before) */
+[class^="bul_"][class*="list"] > li:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 12px;
+  left: 1px;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 100%;
+}
+
+/* 'dash_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소의 가상 요소(:before) */
+[class^="dash_"][class*="list"] > li:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 4px;
+  height: 1px;
+  top: 13px;
+  background: rgba(255, 255, 255, 0.4);
+  left: 1px;
+  font-weight: 500;
+}
+
+/* 'bul_' 또는 'dash_'로 시작하고 'list'를 포함하는 클래스의 자식 li 요소 간의 여백 */
+[class^="bul_"][class*="list"] > li + li,
+[class^="dash_"][class*="list"] > li + li {
+  margin-top: 8px;
+}
+
+/* useinfo */
+.useinfo ul li {
+  font-size: 18px !important;
+}
+.useinfo ul li + li {
+  margin-top: 14px !important;
+}
+.useinfo > .h4_b_lt + .box_bul {
+  margin-top: 24px;
+}
+.useinfo .line_top {
+  margin-top: 98px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+.fw_bold,
+.fw_bold li {
+  font-weight: bold !important;
+}
+.useinfo .bul_list li > .dash_list {
+  margin: 14px 0;
 }
