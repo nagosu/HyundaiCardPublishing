@@ -41,8 +41,11 @@ const cardInfo = {
     "무신사 현대카드 : 국내전용/국내외겸용(MasterCard) 10,000원",
     "가족 카드 : 국내전용/국내외겸용(MasterCard) 5,000원",
   ],
-  overdueFee:
-    "카드 이용대금 연체 시 약정금리+연체가산금리 3%의 연체금리가 적용됩니다. (회원별, 이용 상품별 차등 적용/법정 최고금리 20% 이내) 단, 연체 발생시점에 약정금리가 없는 경우 아래와 같이 적용",
+  overdueFee: [
+    "카드 이용대금 연체 시 약정금리+연체가산금리 3%의 연체금리가 적용됩니다.",
+    "(회원별, 이용 상품별 차등 적용/법정 최고금리 20% 이내)",
+    "단, 연체 발생시점에 약정금리가 없는 경우 아래와 같이 적용",
+  ],
   overdueFeeDetails: [
     "일시불: 거래 발생시점 기준 최소 기간(2개월)의 유이자할부 약정금리+연체가산금리 3%",
     "무이자할부: 거래 발생시점 기준 동일한 할부 계약 기간의 유이자할부 약정금리+연체가산금리 3%",
@@ -107,15 +110,50 @@ function MainPage() {
     }
   };
 
+  // popContWrap의 높이를 동적으로 조정하는 함수
+  const resizePop = () => {
+    const wWidth = window.innerWidth;
+    const wHeight = window.innerHeight;
+    const minPopPadding = 80;
+    const scaleRatio = ((100 / 1920) * wWidth) / 100;
+    let calPopMinTopPadding = (wHeight - 570) / 2;
+
+    //팝업 스케일, Paading, 팝업 스크롤바 사이즈 조정
+    if (scaleRatio < 1) {
+      const calScale = scaleRatio < 0.75 ? 0.75 : scaleRatio;
+      const calContHT =
+        document.querySelector(".popCont").clientHeight * calScale;
+      document.querySelector(".popCont").style.transform = `scale(${calScale})`;
+      document.querySelector(
+        ".popCont"
+      ).parentElement.style.height = `${calContHT}px`;
+      calPopMinTopPadding = (wHeight - 570 * calScale) / 2;
+    } else {
+      document.querySelector(".popCont").removeAttribute("style");
+      document.querySelector(".popCont").parentElement.style.height = "auto";
+    }
+    if (wHeight > 1080) {
+      calPopMinTopPadding =
+        (wHeight - document.querySelector(".popCont").clientHeight) / 2;
+    }
+    calPopMinTopPadding =
+      calPopMinTopPadding > minPopPadding ? calPopMinTopPadding : minPopPadding;
+    document.querySelector(
+      ".popContWrap"
+    ).style.padding = `${calPopMinTopPadding}px 0`;
+  };
+
   // 컴포넌트가 마운트될 때와 창 크기가 변경될 때마다 updateScale과 updatePadding을 호출
   useEffect(() => {
     updateScale();
     updatePadding();
     window.addEventListener("resize", updateScale); // 창 크기가 변경될 때 updateScale 함수 호출
     window.addEventListener("resize", updatePadding); // 창 크기가 변경될 때 updatePadding 함수 호출
+    window.addEventListener("resize", resizePop); // 창 크기가 변경될 때 resizePop 함수 호출
     return () => {
       window.removeEventListener("resize", updateScale); // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
       window.removeEventListener("resize", updatePadding); // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+      window.removeEventListener("resize", resizePop); // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     };
   }, []);
 
@@ -133,6 +171,7 @@ function MainPage() {
         activeSlide.style.opacity = "1";
       }
     }, 100);
+    resizePop(); // 팝업을 열 때에도 resizePop 함수 호출
   };
 
   // 팝업 닫기 버튼 클릭 시 실행되는 함수
@@ -282,7 +321,11 @@ function MainPage() {
                         </ul>
                       </li>
                       <li className='fw_bold'>
-                        {cardInfo.overdueFee}
+                        {cardInfo.overdueFee[0]}
+                        <br />
+                        {cardInfo.overdueFee[1]}
+                        <br />
+                        {cardInfo.overdueFee[2]}
                         <ul className='dash_list'>
                           {cardInfo.overdueFeeDetails.map((detail, index) => (
                             <li key={index}>{detail}</li>
